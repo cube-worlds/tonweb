@@ -208,6 +208,26 @@ class HttpProvider {
     }
 
     /**
+     * Returns transactions included in this block
+     * @param workchain {number}
+     * @param shardId   {string}
+     * @param shardBlockNumber  {number}
+     * @param limit? {number}
+     * @param afterLt? {number} pivot transaction LT to start with
+     * @param addressHash? {string} take the account address where the pivot transaction took place, convert it to raw format and take the part of the address without the workchain (address hash)
+     */
+    async getBlockTransactionsExt(workchain, shardId, shardBlockNumber, limit, afterLt, addressHash) {
+        return this.send('getBlockTransactionsExt', {
+            workchain: workchain,
+            shard: shardId,
+            seqno: shardBlockNumber,
+            count: limit,
+            after_lt: afterLt,
+            after_hash: addressHash
+        });
+    }
+
+    /**
      * Returns transactions hashes included in this masterhcain block
      * @param masterchainBlockNumber  {number}
      * @param limit? {number}
